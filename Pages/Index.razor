@@ -1,0 +1,51 @@
+﻿@page "/"
+@using BlazorScheduler.Data
+@using Syncfusion.Blazor.Schedule
+
+@inject GoogleService GoogleService
+
+<SfSchedule TValue="Appointment" Width="100%" Height="650px" @bind-SelectedDate="SelectedDate">
+    <ScheduleEventSettings DataSource="@DataSource"></ScheduleEventSettings>
+    <ScheduleEvents TValue="Appointment" ActionCompleted="OnActionCompleted"></ScheduleEvents>
+</SfSchedule>
+
+@code{
+    private DateTime SelectedDate;
+    private List<Appointment> DataSource;
+
+    protected async override Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        SelectedDate = new DateTime(2020, 11, 1);
+        DataSource = GoogleService.GetEvents(SelectedDate);
+    }
+
+    private void OnActionCompleted(ActionEventArgs<Appointment> args)
+    {
+        if (args.ActionType == ActionType.EventCreate || args.ActionType == ActionType.EventChange || args.ActionType == ActionType.EventRemove)
+        {
+            if (args.AddedRecords != null && args.AddedRecords.Count > 0)
+            {
+                foreach (Appointment eventData in args.AddedRecords)
+                {
+                    GoogleService.InsertEvent(eventData);
+                }
+            }
+            if (args.ChangedRecords != null && args.ChangedRecords.Count > 0)
+            {
+                foreach (Appointment eventData in args.ChangedRecords)
+                {
+                    GoogleService.UpdateEvent(eventData);
+                }
+            }
+            if (args.DeletedRecords != null && args.DeletedRecords.Count > 0)
+            {
+                foreach (Appointment eventData in args.DeletedRecords)
+                {
+                    GoogleService.RemoveEvent(eventData.Id);
+                }
+            }
+            this.DataSource = GoogleService.GetEvents(SelectedDate);
+        }
+    }
+}
