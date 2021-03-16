@@ -6,4 +6,4 @@
 
 Note: At the first time of running sample, it will attempt to open a new browser window, in that you have to authorize it.
 
-Blog: [How to Synchronize Google Calendar with Syncfusion Blazor Scheduler](https://github.com/SyncfusionExamples/google-calendar-synchronization-with-blazor-scheduler)
+Blog: [How to Synchronize Google Calendar with Syncfusion Blazor Scheduler](https://www.syncfusion.com/blogs/post/synchronize-google-calendar-with-syncfusion-blazor-scheduler.aspx)
