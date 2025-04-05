@@ -1,12 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.49.0.2139" />
-    <PackageReference Include="Syncfusion.Blazor" Version="18.3.0.50" />
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.68.0.3592" />
+    <PackageReference Include="Syncfusion.Blazor" Version="28.2.3" />
+	  <Content Include="token.json\**">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
   </ItemGroup>
 
 </Project>
