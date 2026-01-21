@@ -1,4 +1,5 @@
-﻿@page "/"
+﻿
+@page "/"
 @namespace BlazorScheduler.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
@@ -13,10 +14,19 @@
     <title>BlazorScheduler</title>
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
-    <link href="css/site.css" rel="stylesheet" />
-    <link href="_content/Syncfusion.Blazor/styles/bootstrap4.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+    <!-- Syncfusion theme for v27+ on .NET 8/9 -->
+    <link rel="stylesheet" href="_content/Syncfusion.Blazor.Themes/bootstrap5.css" />
+    
+<!-- Syncfusion Theme -->
+<link rel="stylesheet" href="_content/Syncfusion.Blazor/styles/bootstrap5.css" rel="stylesheet"/>
+
+
+
 </head>
 <body>
+    <!-- Syncfusion core import (loads required modules) -->
+<script src="_content/Syncfusion.Blazor/scripts/syncfusion-blazor.min.js"></script>
     <app>
         <component type="typeof(App)" render-mode="ServerPrerendered" />
     </app>

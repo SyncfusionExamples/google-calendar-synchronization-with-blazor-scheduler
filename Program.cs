@@ -1,28 +1,43 @@
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using Syncfusion.Blazor;
 
-namespace BlazorScheduler
+// ADD THIS if your GoogleService is in BlazorScheduler.Data
+using BlazorScheduler.Data;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Services
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+
+// If you call Google APIs over HTTP, keep HttpClient available
+builder.Services.AddHttpClient();
+
+// ✅ Register your app service (Scoped is recommended for Blazor Server)
+builder.Services.AddScoped<GoogleService>();
+// If you actually inject an interface, use this instead:
+// builder.Services.AddScoped<IGoogleService, GoogleService>();
+
+builder.Services.AddSyncfusionBlazor();
+
+var app = builder.Build();
+
+// Pipeline
+if (!app.Environment.IsDevelopment())
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
+
+app.Run();
