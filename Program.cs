@@ -19,7 +19,6 @@ builder.Services.AddHttpClient();
 // ✅ Register your app service (Scoped is recommended for Blazor Server)
 builder.Services.AddScoped<GoogleService>();
 // If you actually inject an interface, use this instead:
-// builder.Services.AddScoped<IGoogleService, GoogleService>();
 
 builder.Services.AddSyncfusionBlazor();
 
